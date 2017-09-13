@@ -4,24 +4,17 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var plugin=require('extract-text-webpack-plugin');
-//require('./npm-scripts/before-build.script');
+var webpack = require('webpack');
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
+require('./npm-scripts/before-build.script');
 
 module.exports = {
-    //entry: require('./webpack-config/entry.config.js'),
-    //output:require('./webpack-config/output.config.js'),
+    entry: require('./webpack-config/entry.config.js'),
+    output:require('./webpack-config/output.config.js'),
 
-
-    entry:{
-        index:'./app/pages/index/index'
-    },
-    output:{
-        path: path.resolve(__dirname,'build'),
-        publicPath: '/',
-        filename: '[name]/[name].[chunkhash].js',
-        //chunkFilename: '[id].[chunkhash].build.js'
-    },
     module: {
-        loaders: [
+        rules: [
             {
                 test:/\.js$/,
                 loader:'babel-loader',
@@ -34,14 +27,30 @@ module.exports = {
             },
             {
                 test:/\.css$/,
-                loader:plugin.extract({fallback:'style-loader',use:'css-loader'}),
+                use: [
+                    'style-loader',
+                    { loader: 'css-loader', options: { modules: true, importLoaders: 1 } },
+                    { loader: 'postcss-loader' },
+                ]
             },
             {
                 test:/\.less$/,
-                loader:plugin.extract([ 'css-loader', 'less-loader' ]),
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+
+                    },
+                    {
+                        loader: 'less-loader',
+                    },
+                ],
             },
         ]
     },
+
     plugins:[
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname ,'build/index.html'),
@@ -49,6 +58,6 @@ module.exports = {
             inject:'head',
             title:'hello'
         }),
-        new plugin('1.css')
+        new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } })
     ],
 };
