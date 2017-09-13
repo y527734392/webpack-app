@@ -1,0 +1,6 @@
+body,html {
+    background: red;
+}
+ul,li {
+	list-style: none;
+}
