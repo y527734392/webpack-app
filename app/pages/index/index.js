@@ -3,7 +3,9 @@
  */
 
 
-import '../../static/less/main.less';
+import 'lessDir/main.less';
+
+
 function a(){
     console.log(223);
 }
