@@ -12,5 +12,5 @@ module.exports = {
     module:require('./webpack-config/module.dev.config.js'),
     resolve:require('./webpack-config/resolve.config.js'),
     plugins:require('./webpack-config/plugins.dev.config.js'),
-    devServer: require('./webpack-config/devServer.config.js'),
+    //devServer: require('./webpack-config/devServer.config.js'),
 };

@@ -8,10 +8,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 moduleConfig.rules.push({
     test: /\.css$/,
     exclude: /node_modules|bootstrap/,
-    use: [
-        { loader: 'style-loader' },
-        { loader: 'css-loader' },
-    ],
+    loader:'style-loader!css-loader!postcss-loader',
 });
 
 moduleConfig.rules.push({
@@ -21,12 +18,14 @@ moduleConfig.rules.push({
         {
             loader: 'css-loader',
             options: {
-                minimize: true,
+                //minimize: true,
             },
         },
+        { loader:'postcss-loader' },
         {
             loader: 'less-loader',
         },
+
     ]),
 });
 

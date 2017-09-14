@@ -6,7 +6,6 @@ var dirVars = require('../base/dir-vars.config.js');
 var pageArr = require('../base/page-entries.config.js');
 
 //var HashOutput = require('webpack-plugin-hash-output');
-console.log(webpack.optimize);
 var configPlugins = [
 
     /* 全局shimming */
@@ -44,7 +43,7 @@ var configPlugins = [
     // 添加三个插件热加载
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
 
     new HtmlWebpackPlugin({
         filename: 'index.html',
